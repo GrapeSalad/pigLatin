@@ -1,5 +1,4 @@
-var unuseableNumbers = ["1", "2","3","4","5","6","7","8","9","0"];
-var unuseableCharacters = [".", ",","/","#","!","$","%","^","&","*",";",":","{","}","=","-","_","`","~","(",")"];
+var unuseableNumbers = ["1", "2","3","4","5","6","7","8","9","0", ".", ",","/",":","#","{","!","$","}","%","^","&","*",";","=","-","_","`","~","(",")"];
 var vowelArray = ["a","e","i","o","u"];
 
 var verified  = function (string, array) {
@@ -47,11 +46,18 @@ var ifTests = function(sentence, unuseableNumbers, vowelArray){
   }
   return str;
 };
+function transformToPigLatin(string) {
+  var sliceString = string.split(" ");
+  var result="";
+  for (var i = 0; i < sliceString.length; i++) {
+    result+=(ifTests(sliceString[i], unuseableNumbers, vowelArray)+" ");
+  }
+  return result;
+}
 //USER INTERFACE LOGIC
 $(function(){
   $("#form").submit(function(event){
     event.preventDefault();
-
-    console.log(ifTests($("input#userString").val(), unuseableNumbers, vowelArray));
+    $("#output").append("<p>" + transformToPigLatin($("input#userString").val().toLowerCase()) +"</p>")
   });
 });
